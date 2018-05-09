@@ -4,17 +4,21 @@
 
 WORKDIR=/workdir
 VERSION='17.01.4'
+LEDEDIR=${WORKDIR}/lede
 
 cd ${WORKDIR} && \
+rm -Rfv ${LEDEDIR} && \
 wget http://downloads.lede-project.org/releases/${VERSION}/targets/ramips/mt7620/lede-sdk-${VERSION}-ramips-mt7620_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz \
   -O lede-sdk.tar.xz && \
-mkdir lede && tar xvf lede-sdk.tar.xz -C lede --strip-components 1 && \
+mkdir ${LEDEDIR} && tar xvf lede-sdk.tar.xz -C ${LEDEDIR} --strip-components 1 && \
 rm -Rfv lede-sdk.tar.xz
 
-export STAGING_DIR=${WORKDIR}/lede-sdk/staging_dir && \
-export PATH=${WORKDIR}/lede-sdk/staging_dir/toolchain-mipsel_24kc_gcc-5.4.0_musl-1.1.16/bin:${PATH} && \
+export STAGING_DIR=${LEDEDIR}/staging_dir && \
+export PATH=${LEDEDIR}/staging_dir/toolchain-mipsel_24kc_gcc-5.4.0_musl-1.1.16/bin:${PATH} && \
 
-cd ${WORKDIR}/lede && \
+cd ${LEDEDIR} && \
 echo "src-link pmacct ${WORKDIR}/pmacct" >> feeds.conf.default && \
 ./scripts/feeds update -a && \
-./scripts/feeds install pmacct
+./scripts/feeds install pmacct && \
+cp -Rfv ${WORKDIR}/.config ${LEDEDIR} && \
+make -j10 V=s

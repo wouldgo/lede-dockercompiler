@@ -36,22 +36,22 @@ TARGET_CFLAGS += -ffunction-sections -fdata-sections
 TARGET_LDFLAGS += -Wl,--gc-sections
 
 CONFIGURE_VARS += \
-  BUILD_CC="$(TARGET_CC)" \
-  HOSTCC="$(HOSTCC)" \
-  td_cv_buggygetaddrinfo="no" \
-  ac_cv_linux_vers=$(LINUX_VERSION) \
-  ac_cv_header_rpc_rpcent_h=no \
-  ac_cv_lib_rpc_main=no \
-  ac_cv_path_PCAP_CONFIG=""
+	BUILD_CC="$(TARGET_CC)" \
+	HOSTCC="$(HOSTCC)" \
+	td_cv_buggygetaddrinfo="no" \
+	ac_cv_linux_vers=$(LINUX_VERSION) \
+	ac_cv_header_rpc_rpcent_h=no \
+	ac_cv_lib_rpc_main=no \
+	ac_cv_path_PCAP_CONFIG=""
 
 MAKE_FLAGS := CCOPT="$(TARGET_CFLAGS)" INCLS="-I. $(TARGET_CPPFLAGS)"
 
 
 define Package/pmacct
-  SECTION:=net
+	SECTION:=net
 	URL:=http://www.pmacct.net/
-  CATEGORY:=Network
-  TITLE:=pmacct is a small set of multi-purpose passive network monitoring tools
+	CATEGORY:=Network
+	TITLE:=pmacct is a small set of multi-purpose passive network monitoring tools
 	DEPENDS:=+libpcap +libpthread #+pkg-config +libtool +autoconf +automake +bash
 endef
 
