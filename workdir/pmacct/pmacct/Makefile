@@ -28,9 +28,11 @@ include $(INCLUDE_DIR)/package.mk
 CONFIGURE_ARGS += \
 	--with-pcap-includes="$(STAGING_DIR)/usr/include" \
 	--with-pcap-libs="$(STAGING_DIR)/usr/lib" \
-	--enable-bgp-bins=no \
-	--enable-bmp-bins=no \
-	--enable-st-bins=no
+	--enable-jansson \
+	--enable-nflog
+	#--enable-geoipv2 \
+	#--enable-ndpi \
+	#--with-ndpi-static-lib="" \
 
 TARGET_CFLAGS += -ffunction-sections -fdata-sections
 TARGET_LDFLAGS += -Wl,--gc-sections
@@ -52,7 +54,7 @@ define Package/pmacct
 	URL:=http://www.pmacct.net/
 	CATEGORY:=Network
 	TITLE:=pmacct is a small set of multi-purpose passive network monitoring tools
-	DEPENDS:=+libpcap +libpthread #+pkg-config +libtool +autoconf +automake +bash
+	DEPENDS:=+libpcap +libpthread +jansson +libnetfilter-log#+pkg-config +libtool +autoconf +automake +bash
 endef
 
 define Package/pmacct/install
