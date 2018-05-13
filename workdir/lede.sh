@@ -5,7 +5,7 @@
 WORKDIR=/workdir
 VERSION='17.01.4'
 LEDEDIR=${WORKDIR}/lede
-PACKAGE_NAME=pmacct_1.7.1-1_mipsel_24kc.ipk
+PACKAGE_NAME="pmacct_*_mipsel_24kc.ipk"
 
 cd ${WORKDIR} && \
 rm -Rfv ${LEDEDIR} && \
@@ -20,9 +20,9 @@ export PATH=${LEDEDIR}/staging_dir/toolchain-mipsel_24kc_gcc-5.4.0_musl-1.1.16/b
 cd ${LEDEDIR} && \
 echo "src-link pmacct ${WORKDIR}/pmacct" >> feeds.conf.default && \
 ./scripts/feeds update -a && \
-./scripts/feeds install pmacct && \
+./scripts/feeds install pmacct #&& \
 cp -Rfv ${WORKDIR}/.config ${LEDEDIR} && \
-make -j10 V=s && \
-
-cp ${LEDEDIR}/bin/packages/mipsel_24kc/pmacct/${PACKAGE_NAME} ${WORKDIR} && \
-sha256sum ${WORKDIR}/${PACKAGE_NAME}
+make -j10 V=s #&& \
+#
+#cp ${LEDEDIR}/bin/packages/mipsel_24kc/pmacct/${PACKAGE_NAME} ${WORKDIR} && \
+#sha256sum ${WORKDIR}/${PACKAGE_NAME}
